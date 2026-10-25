@@ -1,0 +1,19 @@
+services:
+  php-nginx:
+    image: webdevops/php-nginx-dev:8.3
+    container_name: php-practicas
+    working_dir: /app
+    ports:
+      - "8080:80"
+    environment:
+      - WEB_DOCUMENT_ROOT=/app
+      - XDEBUG_MODE=debug
+      - XDEBUG_START_WITH_REQUEST=yes
+      - XDEBUG_CLIENT_HOST=host.docker.internal
+      - XDEBUG_CLIENT_PORT=9003
+      - XDEBUG_LOG=/tmp/xdebug.log
+      - XDEBUG_LOG_LEVEL=10
+    volumes:
+      - ./app:/app:rw,cached
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
